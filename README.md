@@ -1,10 +1,74 @@
 # A Deep Learning Approach to Probability of Shortfall in Defined Contribution Plan Optimization
 
-In this study, we used a neural network (NN) to determine the optimal decumulation strategy for retirees with defined contribution (DC) pension plans. Unlike traditional approaches that focus on expected shortfall, we reframe the risk of fund depletion as a probability of shortfall (PS) term. Our objective is to strike a balance between maximizing withdrawals and minimizing the probability that the retiree’s terminal wealth falls below a predefined threshold.
+## Overview
 
-We started by addressing the inherent challenges of the PS problem. Due to the non- differentiability of the indicator function, which introduces difficulties in calculating the derivative using Monte Carlo simulation, which hinders the NN’s ability to update its weights using stochastic gradient descent (SGD). To overcome this limitation, we propose approximating the indicator function with a differentiable sigmoid function, allowing for smooth optimization in future research.
-To ensure the NN’s effectiveness, we conduct extensive numerical experiments to iden- tify optimal hyper-parameters, including learning rate, batch size, number of iterations, and learning rate decay schedules. Given computational constraints, we evaluated each parameter using the mean and standard deviation of five experimental runs to ensure that the results and conclusions we obtained are valid. After tuning these parameters, we com- pare the NN’s performance with PDE method, which served as a benchmark for accuracy and reliability.
+This project develops a **Neural Network (NN)** framework to determine the optimal decumulation strategy for retirees with **Defined Contribution (DC)** pension plans.
 
-Beyond standard validation, we analyze the control heat map and the cumulative dis- tribution function (CDF) plot for κ = 7,000 to better understand the trade-off between risk and withdrawal value. We also explore the conditions under which PS can serve as a robust risk measure. Furthermore, to assess the generalizability of our approach, we test the NN’s performance on both synthetic and historical datasets, evaluating its sensitivity to different economic conditions.
+Instead of using **Expected Shortfall (ES)** as the risk measure, we reformulate the problem using **Probability of Shortfall (PS)** — the probability that terminal wealth falls below a predefined threshold.
 
-Ultimately, our findings indicate that one of the main challenges in solving this problem is the non-differentiability of the indicator function, replacing the indicator function with a sigmoid function (ρ = 100) in the probability of shortfall term, combined with an NN trained using good parameters, produce results closely matching those of the PDE method. This highlights the NN’s potential as an accurate and computationally efficient solution for optimizing decumulation strategies in DC pension plans. Compared to expected shortfall (ES), PS offers a more intuitive risk measure, as it quantifies the likelihood of wealth depletion. However, it does not capture the magnitude of the shortfall, which remains a key consideration for future research.
+Our objective:
+
+> Maximize withdrawals while minimizing the probability of wealth depletion.
+
+## Methodology
+
+### 1. Problem Reformulation
+
+The PS term involves a non-differentiable indicator function, which prevents gradient-based optimization using Monte Carlo simulation and stochastic gradient descent (SGD).
+
+To address this:
+
+* We approximate the indicator function using a **differentiable sigmoid function**
+* This enables smooth backpropagation and stable NN training
+* Final implementation uses sigmoid parameter: **ρ = 100**
+
+
+### 2. Neural Network Training
+
+We conduct extensive hyperparameter tuning:
+
+* Learning rate
+* Batch size
+* Number of iterations
+* Learning rate decay schedule
+
+Due to computational constraints:
+
+* Each configuration is evaluated over **5 independent runs**
+* We report mean and standard deviation to ensure robustness
+
+
+### 3. Benchmark Comparison
+
+We compare NN results against a **PDE-based solution**, which serves as the benchmark for accuracy and reliability.
+
+
+## Experiments & Analysis
+
+* Control heat map analysis
+* CDF comparison (κ = 7,000)
+* Risk–withdrawal trade-off evaluation
+* Out-of-sample testing on:
+
+  * Synthetic data
+  * Historical data
+* Sensitivity analysis across economic conditions
+
+
+## Key Findings
+
+* The primary challenge is the **non-differentiability** of the indicator function.
+* Replacing it with a sigmoid approximation enables effective optimization.
+* With proper hyperparameter tuning, NN results closely match PDE solutions.
+* The NN provides a computationally efficient alternative to PDE methods.
+
+### Risk Measure Insight
+
+* **Probability of Shortfall (PS)** is intuitive and directly measures depletion likelihood.
+* However, PS does not capture the magnitude of the shortfall (unlike ES).
+* Extending the framework to incorporate severity measures is left for future research.
+
+
+## Conclusion
+
+This study demonstrates that Neural Networks, combined with a differentiable approximation of Probability of Shortfall, can effectively optimize decumulation strategies in DC pension plans while achieving accuracy comparable to PDE-based approaches.
