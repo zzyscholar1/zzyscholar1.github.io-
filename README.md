@@ -32,11 +32,6 @@ We conduct extensive hyperparameter tuning:
 * Number of iterations
 * Learning rate decay schedule
 
-Due to computational constraints:
-
-* Each configuration is evaluated over **5 independent runs**
-* We report mean and standard deviation to ensure robustness
-
 
 ### 3. Benchmark Comparison
 
